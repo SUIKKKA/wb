@@ -1,0 +1,501 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "SUIKKKA/shiftweave"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn absolute(Int) -> Int
+
+pub fn all_workloads(ScheduleProblem, Array[Assignment]) -> Array[PersonWorkload]
+
+pub fn analyze_days(ScheduleProblem, Array[Assignment]) -> Array[DayOperation]
+
+pub fn analyze_handovers(ScheduleProblem, Array[Assignment]) -> Array[Handover]
+
+pub fn analyze_shift_operations(ScheduleProblem, Array[Assignment]) -> Array[ShiftOperation]
+
+pub fn apply_repair_request(ScheduleProblem, RepairRequest) -> ScheduleProblem
+
+pub fn assigned_minutes(ScheduleProblem, Array[Assignment], String) -> Int
+
+pub fn assignments_for_person(Array[Assignment], String) -> Array[Assignment]
+
+pub fn assignments_for_shift(Array[Assignment], String) -> Array[Assignment]
+
+pub fn audit_schedule(ScheduleProblem, Array[Assignment]) -> AuditSummary
+
+pub fn average_minutes(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn better_metrics(ScheduleMetrics, ScheduleMetrics) -> Bool
+
+pub fn build_domain(ScheduleProblem, Array[Assignment], Shift, Int) -> CandidateDomain
+
+pub fn build_domains(ScheduleProblem, Array[Assignment]) -> Array[CandidateDomain]
+
+pub fn build_operational_actions(Array[ShiftOperation], Array[Handover]) -> Array[OperationalAction]
+
+pub fn busiest_person(ScheduleProblem, Array[Assignment]) -> String?
+
+pub fn can_assign(ScheduleProblem, Array[Assignment], Shift, Int, Person) -> Diagnostic?
+
+pub fn changed_assignments(Array[Assignment], Array[Assignment]) -> Array[Assignment]
+
+pub fn check_availability_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_availability_supply_policy(ScheduleProblem) -> Array[PolicyFinding]
+
+pub fn check_capacity_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_coverage_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_duplicate_person_in_shift_policy(Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_duplicate_slot_policy(Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_empty_skill_policy(ScheduleProblem) -> Array[PolicyFinding]
+
+pub fn check_fairness_gap_policy(ScheduleProblem, Array[Assignment], maximum_gap? : Int) -> Array[PolicyFinding]
+
+pub fn check_locked_assignment_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_maximum_minutes_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_overlap_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_preference_policy(ScheduleProblem, Array[Assignment], threshold? : Int) -> Array[PolicyFinding]
+
+pub fn check_priority_policy(ScheduleProblem, Array[Assignment], minimum_priority? : Int) -> Array[PolicyFinding]
+
+pub fn check_rest_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_skill_policy(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn check_target_minutes_policy(ScheduleProblem, Array[Assignment], tolerance? : Int) -> Array[PolicyFinding]
+
+pub fn compare_schedules(ScheduleProblem, Array[Assignment], Array[Assignment]) -> String
+
+pub fn count_policy_errors(Array[PolicyFinding]) -> Int
+
+pub fn count_policy_warnings(Array[PolicyFinding]) -> Int
+
+pub fn count_uncovered(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn coverage_summary(ScheduleProblem, Array[Assignment]) -> CoverageSummary
+
+pub fn disruption_count(Array[Assignment], Array[Assignment]) -> Int
+
+pub fn domain_contains(CandidateDomain, String) -> Bool
+
+pub fn evaluate_schedule(ScheduleProblem, Array[Assignment]) -> ScheduleMetrics
+
+pub fn expand_days(ScheduleProblem, Int) -> ScheduleProblem
+
+pub fn explain_candidate(ScheduleProblem, Array[Assignment], Shift, Int, Person) -> CandidateExplanation
+
+pub fn explain_problem(ScheduleProblem, Array[Assignment]) -> Array[SlotExplanation]
+
+pub fn explain_slot(ScheduleProblem, Array[Assignment], Shift, Int) -> SlotExplanation
+
+pub fn fairness_penalty(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn find_person(ScheduleProblem, String) -> Person?
+
+pub fn find_shift(ScheduleProblem, String) -> Shift?
+
+pub fn forced_slots(ScheduleProblem, Array[Assignment]) -> Array[SlotExplanation]
+
+pub fn has_errors(Array[Diagnostic]) -> Bool
+
+pub fn impossible_slots(ScheduleProblem, Array[Assignment]) -> Array[SlotExplanation]
+
+pub fn incremental_cost(ScheduleProblem, Array[Assignment], Shift, Person) -> Int
+
+pub fn is_available(Person, Shift) -> Bool
+
+pub fn laboratory_scenario() -> ScheduleProblem
+
+pub fn make_person(String, String, Array[Skill], Array[TimeSpan], Int, Int, preferences? : Array[ShiftPreference]) -> Person
+
+pub fn make_shift(String, String, Int, Int, Int, Array[SkillRequirement], priority? : Int, group? : String) -> Shift
+
+pub fn maximum_workload_gap(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn meets_requirements(Person, Shift) -> Bool
+
+pub fn minutes_to_clock(Int) -> String
+
+pub fn most_constrained_slot(ScheduleProblem, Array[Assignment]) -> SlotExplanation?
+
+pub fn parse_integer(String) -> Int?
+
+pub fn parse_roster(String) -> ParsedRoster
+
+pub fn person_minutes(ScheduleProblem, Array[Assignment], String) -> Int
+
+pub fn preference_for(Person, String) -> Int
+
+pub fn preference_score(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn propagate(ScheduleProblem, Array[Assignment]) -> PropagationResult
+
+pub fn record_kind(String) -> RecordKind
+
+pub fn removed_assignments(Array[Assignment], Array[Assignment]) -> Array[Assignment]
+
+pub fn render_csv(ScheduleProblem, ScheduleResult) -> String
+
+pub fn render_json(ScheduleProblem, ScheduleResult) -> String
+
+pub fn render_markdown(ScheduleProblem, ScheduleResult) -> String
+
+pub fn render_operations_markdown(OperationalReview) -> String
+
+pub fn render_problem_explanation(ScheduleProblem, Array[Assignment]) -> String
+
+pub fn render_roster(ScheduleProblem) -> String
+
+pub fn render_slot_explanation(ScheduleProblem, SlotExplanation) -> String
+
+pub fn repair(ScheduleProblem, RepairRequest, options? : SearchOptions) -> ScheduleResult
+
+pub fn review_operations(ScheduleProblem, Array[Assignment]) -> OperationalReview
+
+pub fn risk_level(Int) -> String
+
+pub fn run_all_policies(ScheduleProblem, Array[Assignment]) -> Array[PolicyFinding]
+
+pub fn same_assignment(Assignment, Assignment) -> Bool
+
+pub fn same_day(TimeSpan, TimeSpan) -> Bool
+
+pub fn scenario_by_name(String) -> ScheduleProblem?
+
+pub fn scenario_names() -> Array[String]
+
+pub fn schedule_fingerprint(Array[Assignment]) -> String
+
+pub fn skill_level(Person, String) -> Int
+
+pub fn smallest_domain_index(Array[CandidateDomain]) -> Int
+
+pub fn solve(ScheduleProblem, options? : SearchOptions) -> ScheduleResult
+
+pub fn split_fields(String) -> Array[String]
+
+pub fn store_scenario() -> ScheduleProblem
+
+pub fn suggested_actions(ScheduleProblem, Array[Assignment]) -> Array[String]
+
+pub fn summarize_infeasibility(ScheduleProblem, Array[Assignment]) -> Array[String]
+
+pub fn total_scheduled_minutes(ScheduleProblem, Array[Assignment]) -> Int
+
+pub fn trim_ascii(String) -> String
+
+pub fn validate_assignments(ScheduleProblem, Array[Assignment], require_complete? : Bool) -> Array[Diagnostic]
+
+pub fn validate_problem(ScheduleProblem) -> Array[Diagnostic]
+
+pub fn volunteer_scenario() -> ScheduleProblem
+
+pub fn workload_for(ScheduleProblem, Array[Assignment], Person) -> PersonWorkload
+
+// Errors
+
+// Types and methods
+pub(all) struct Assignment {
+  shift_id : String
+  slot : Int
+  person_id : String
+  locked : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) struct AuditSummary {
+  valid_problem : Bool
+  complete : Bool
+  hard_errors : Int
+  warnings : Int
+  coverage_percent : Int
+  deterministic_fingerprint : String
+  notes : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct CandidateDomain {
+  key : SlotKey
+  people : Array[String]
+  rejected : Array[Diagnostic]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct CandidateExplanation {
+  person_id : String
+  eligible : Bool
+  incremental_cost : Int
+  reasons : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct CoverageSummary {
+  total_slots : Int
+  covered_slots : Int
+  uncovered_slots : Int
+  coverage_percent : Int
+  people_used : Int
+  total_minutes : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct DayOperation {
+  day : Int
+  shift_count : Int
+  required_slots : Int
+  assigned_slots : Int
+  uncovered_slots : Int
+  people_used : Int
+  scheduled_minutes : Int
+  average_load : Int
+  risk_score : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Diagnostic {
+  code : DiagnosticCode
+  message : String
+  person_id : String?
+  shift_id : String?
+  slot : Int?
+  severity : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) enum DiagnosticCode {
+  InvalidTimeSpan
+  DuplicatePerson
+  DuplicateShift
+  UnknownPerson
+  UnknownShift
+  InvalidSlot
+  DuplicateAssignment
+  OverlappingAssignment
+  OutsideAvailability
+  SkillMismatch
+  MaximumMinutesExceeded
+  InsufficientRest
+  ConsecutiveLimitExceeded
+  UncoveredSlot
+  EmptyCandidateDomain
+  SearchBudgetExceeded
+  InvalidConfiguration
+} derive(Eq, @debug.Debug)
+
+pub(all) enum FindingLevel {
+  Info
+  Warning
+  Error
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Handover {
+  person_id : String
+  from_shift : String
+  to_shift : String
+  gap_minutes : Int
+  same_group : Bool
+  risk_score : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct OperationalAction {
+  priority : Int
+  category : String
+  subject : String
+  message : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct OperationalReview {
+  shifts : Array[ShiftOperation]
+  days : Array[DayOperation]
+  handovers : Array[Handover]
+  actions : Array[OperationalAction]
+  total_risk : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ParseIssue {
+  line : Int
+  column : Int
+  message : String
+  source : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ParsedRoster {
+  problem : ScheduleProblem
+  issues : Array[ParseIssue]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Person {
+  id : String
+  name : String
+  skills : Array[Skill]
+  availability : Array[TimeSpan]
+  preferences : Array[ShiftPreference]
+  target_minutes : Int
+  maximum_minutes : Int
+  maximum_consecutive_shifts : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PersonWorkload {
+  person_id : String
+  assigned_minutes : Int
+  target_minutes : Int
+  difference : Int
+  assignment_count : Int
+  preference_score : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PolicyFinding {
+  rule : String
+  level : FindingLevel
+  message : String
+  person_id : String?
+  shift_id : String?
+  measured : Int
+  expected : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PropagationResult {
+  assignments : Array[Assignment]
+  diagnostics : Array[Diagnostic]
+  forced_count : Int
+  feasible : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) enum RecordKind {
+  PersonRecord
+  SkillRecord
+  AvailabilityRecord
+  PreferenceRecord
+  ShiftRecord
+  RequirementRecord
+  AssignmentRecord
+  RuleRecord
+  CommentRecord
+  BlankRecord
+  UnknownRecord
+} derive(Eq, @debug.Debug)
+
+pub(all) struct RepairRequest {
+  unavailable_people : Array[String]
+  removed_shifts : Array[String]
+  unlocked_shifts : Array[String]
+  preserve_unaffected : Bool
+} derive(Eq, @debug.Debug)
+pub fn RepairRequest::empty() -> Self
+
+pub(all) struct ScheduleMetrics {
+  hard_violations : Int
+  uncovered_slots : Int
+  preference_score : Int
+  fairness_penalty : Int
+  disruption_count : Int
+  total_minutes : Int
+  objective : Int
+} derive(Eq, @debug.Debug)
+pub fn ScheduleMetrics::empty() -> Self
+
+pub(all) struct ScheduleProblem {
+  people : Array[Person]
+  shifts : Array[Shift]
+  existing : Array[Assignment]
+  minimum_rest_minutes : Int
+  fairness_weight : Int
+  preference_weight : Int
+  disruption_weight : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ScheduleResult {
+  status : SolveStatus
+  assignments : Array[Assignment]
+  diagnostics : Array[Diagnostic]
+  metrics : ScheduleMetrics
+  explored_nodes : Int
+  propagated_values : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct SearchOptions {
+  maximum_nodes : Int
+  maximum_solutions : Int
+  stop_at_first_feasible : Bool
+  keep_explanations : Bool
+} derive(Eq, @debug.Debug)
+pub fn SearchOptions::default() -> Self
+
+pub(all) struct Shift {
+  id : String
+  label : String
+  time : TimeSpan
+  required_people : Int
+  requirements : Array[SkillRequirement]
+  priority : Int
+  group : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ShiftOperation {
+  shift_id : String
+  label : String
+  group : String
+  assigned : Int
+  required : Int
+  qualified : Int
+  standby : Int
+  coverage_percent : Int
+  risk_score : Int
+  risk_level : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ShiftPreference {
+  shift_id : String
+  weight : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Skill {
+  name : String
+  level : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct SkillRequirement {
+  skill : String
+  minimum_level : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct SlotExplanation {
+  shift_id : String
+  slot : Int
+  candidates : Array[CandidateExplanation]
+  eligible_count : Int
+  rejected_count : Int
+  forced : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) struct SlotKey {
+  shift_id : String
+  slot : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SolveStatus {
+  Solved
+  Partial
+  Infeasible
+  BudgetExceeded
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TimeSpan {
+  start : Int
+  end : Int
+} derive(Eq, @debug.Debug)
+pub fn TimeSpan::contains(Self, Self) -> Bool
+pub fn TimeSpan::duration(Self) -> Int
+pub fn TimeSpan::gap_to(Self, Self) -> Int
+pub fn TimeSpan::is_valid(Self) -> Bool
+pub fn TimeSpan::overlaps(Self, Self) -> Bool
+
+// Type aliases
+pub type PersonId = String
+
+pub type ShiftId = String
+
+// Traits

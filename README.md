@@ -15,10 +15,25 @@ The project is deliberately domain-facing rather than a MoonBit language tool. T
 ```bash
 moon run cmd/main -- demo
 moon test
-moon run cmd/main -- demo
 ```
 
 The demo solves a seven-shift retail roster and prints two Markdown reports: the assignment result and an operational risk review. The latter identifies uncovered duties, replacement margin, rest-sensitive handovers, and concrete follow-up actions.
+
+The current CLI intentionally exposes the built-in demonstration only; the reusable library API provides solving, repair, parsing, and reporting. `examples/store.roster` demonstrates the interchange format and can be parsed through `parse_roster` when embedded in an application.
+
+## Install and use as a library
+
+```bash
+moon add SUIKKKA/shiftweave@0.1.1
+```
+
+```moonbit
+let problem = @shiftweave.store_scenario()
+let result = @shiftweave.solve(problem)
+println(@shiftweave.render_markdown(problem, result))
+```
+
+For a disrupted roster, construct a `RepairRequest` and call `repair`. Search uses one deterministic global node budget; `ScheduleResult` reports the real explored-node and propagated-value counts and distinguishes an exhausted budget from a proven infeasible problem.
 
 ## Core capabilities
 
@@ -41,8 +56,9 @@ The text interchange format is line-oriented and pipe-delimited. Comments begin 
 
 ```bash
 moon fmt --check
-moon check
-moon test
+moon check --deny-warn
+moon test --deny-warn
+moon build
 moon run cmd/main -- demo
 moon publish --dry-run
 ```
@@ -64,7 +80,7 @@ moon fmt
 - Deterministic results for the same input and search budget.
 - A verifier checks every emitted roster independently of the solver.
 
-ShiftWeave is an original project implemented for this hackathon. It does not port third-party source code. Dependencies are limited to the MoonBit core/toolchain; repository contents are released under Apache-2.0.
+ShiftWeave is an original project implemented for this hackathon. It does not port third-party source code. Dependencies are limited to the MoonBit core/toolchain; repository contents are released under Apache-2.0. AI assistance and source provenance are documented in [PROVENANCE.md](PROVENANCE.md).
 
 ## License
 
