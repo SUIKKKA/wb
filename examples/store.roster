@@ -1,0 +1,21 @@
+# ShiftWeave pipe-delimited example
+setting|min_rest|480
+setting|max_nodes|50000
+person|alice|Alice|1440|1920|5
+skill|alice|cashier|3
+skill|alice|keyholder|2
+availability|alice|0|10080
+person|bob|Bob|1200|1800|5
+skill|bob|cashier|2
+skill|bob|stock|3
+availability|bob|0|4320
+availability|bob|5760|10080
+person|chen|Chen|1200|1680|5
+skill|chen|cashier|2
+skill|chen|keyholder|1
+availability|chen|0|10080
+shift|mon-open|Monday opening|480|960|2|5|open
+requirement|mon-open|cashier|1
+shift|mon-close|Monday closing|960|1320|2|4|close
+requirement|mon-close|cashier|1
+preference|alice|mon-open|6
