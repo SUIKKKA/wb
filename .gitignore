@@ -1,0 +1,4 @@
+/_build/
+/.mooncakes/
+*.log
+.DS_Store

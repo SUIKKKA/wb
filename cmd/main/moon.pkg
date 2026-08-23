@@ -1,0 +1,5 @@
+import {
+  "SUIKKKA/shiftweave",
+}
+
+pkgtype(kind: "executable")
