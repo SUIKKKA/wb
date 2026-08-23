@@ -7,7 +7,7 @@ pub(all) struct AuditSummary {
   coverage_percent : Int
   deterministic_fingerprint : String
   notes : Array[String]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 fn mix_hash(value : Int, next : Int) -> Int {

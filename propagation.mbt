@@ -4,7 +4,7 @@ pub(all) struct PropagationResult {
   diagnostics : Array[Diagnostic]
   forced_count : Int
   feasible : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn propagate(

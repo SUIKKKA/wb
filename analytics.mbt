@@ -6,7 +6,7 @@ pub(all) struct PersonWorkload {
   difference : Int
   assignment_count : Int
   preference_score : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct CoverageSummary {
@@ -16,7 +16,7 @@ pub(all) struct CoverageSummary {
   coverage_percent : Int
   people_used : Int
   total_minutes : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn workload_for(

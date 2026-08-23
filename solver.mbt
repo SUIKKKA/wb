@@ -22,28 +22,74 @@ fn ordered_candidates(
 }
 
 ///|
+priv struct SearchAttempt {
+  solution : Array[Assignment]?
+  remaining_nodes : Int
+  explored_nodes : Int
+  propagated_values : Int
+  budget_exhausted : Bool
+}
+
+///|
+/// Search with one global node budget threaded through every branch.
 fn search(
   problem : ScheduleProblem,
   current : Array[Assignment],
   remaining_nodes : Int,
-) -> Array[Assignment]? {
+) -> SearchAttempt {
   if remaining_nodes <= 0 {
-    return None
+    return {
+      solution: None,
+      remaining_nodes: 0,
+      explored_nodes: 0,
+      propagated_values: 0,
+      budget_exhausted: true,
+    }
   }
+  let mut available_nodes = remaining_nodes - 1
+  let mut explored = 1
   let propagated = propagate(problem, current)
   if !propagated.feasible {
-    return None
+    return {
+      solution: None,
+      remaining_nodes: available_nodes,
+      explored_nodes: explored,
+      propagated_values: propagated.forced_count,
+      budget_exhausted: false,
+    }
   }
   let domains = build_domains(problem, propagated.assignments)
   if domains.length() == 0 {
-    return Some(propagated.assignments)
+    return {
+      solution: Some(propagated.assignments),
+      remaining_nodes: available_nodes,
+      explored_nodes: explored,
+      propagated_values: propagated.forced_count,
+      budget_exhausted: false,
+    }
   }
   let index = smallest_domain_index(domains)
   if index < 0 || domains[index].people.length() == 0 {
-    return None
+    return {
+      solution: None,
+      remaining_nodes: available_nodes,
+      explored_nodes: explored,
+      propagated_values: propagated.forced_count,
+      budget_exhausted: false,
+    }
   }
   let domain = domains[index]
+  let mut propagated_values = propagated.forced_count
   for person_id in ordered_candidates(problem, propagated.assignments, domain) {
+    if available_nodes <= 0 {
+      return {
+        solution: None,
+        remaining_nodes: 0,
+        explored_nodes: explored,
+        propagated_values,
+        budget_exhausted: true,
+      }
+    }
     let next = propagated.assignments.copy()
     next.push({
       shift_id: domain.key.shift_id,
@@ -51,12 +97,38 @@ fn search(
       person_id,
       locked: false,
     })
-    match search(problem, next, remaining_nodes - 1) {
-      Some(solution) => return Some(solution)
-      None => ()
+    let attempt = search(problem, next, available_nodes)
+    available_nodes = attempt.remaining_nodes
+    explored = explored + attempt.explored_nodes
+    propagated_values = propagated_values + attempt.propagated_values
+    match attempt.solution {
+      Some(solution) =>
+        return {
+          solution: Some(solution),
+          remaining_nodes: available_nodes,
+          explored_nodes: explored,
+          propagated_values,
+          budget_exhausted: false,
+        }
+      None =>
+        if attempt.budget_exhausted {
+          return {
+            solution: None,
+            remaining_nodes: available_nodes,
+            explored_nodes: explored,
+            propagated_values,
+            budget_exhausted: true,
+          }
+        }
     }
   }
-  None
+  {
+    solution: None,
+    remaining_nodes: available_nodes,
+    explored_nodes: explored,
+    propagated_values,
+    budget_exhausted: false,
+  }
 }
 
 ///|
@@ -81,7 +153,8 @@ pub fn solve(
       locked.push(assignment)
     }
   }
-  match search(problem, locked, options.maximum_nodes) {
+  let attempt = search(problem, locked, options.maximum_nodes)
+  match attempt.solution {
     Some(assignments) => {
       let diagnostics = validate_assignments(problem, assignments)
       {
@@ -93,17 +166,17 @@ pub fn solve(
         assignments,
         diagnostics,
         metrics: evaluate_schedule(problem, assignments),
-        explored_nodes: options.maximum_nodes,
-        propagated_values: 0,
+        explored_nodes: attempt.explored_nodes,
+        propagated_values: attempt.propagated_values,
       }
     }
     None => {
       let propagation = propagate(problem, locked)
       let diagnostics = propagation.diagnostics
-      if diagnostics.length() == 0 {
+      if attempt.budget_exhausted {
         diagnostics.push({
           code: SearchBudgetExceeded,
-          message: "search ended without a feasible schedule",
+          message: "global search node budget was exhausted",
           person_id: None,
           shift_id: None,
           slot: None,
@@ -111,12 +184,16 @@ pub fn solve(
         })
       }
       {
-        status: Infeasible,
+        status: if attempt.budget_exhausted {
+          BudgetExceeded
+        } else {
+          Infeasible
+        },
         assignments: locked,
         diagnostics,
         metrics: evaluate_schedule(problem, locked),
-        explored_nodes: options.maximum_nodes,
-        propagated_values: propagation.forced_count,
+        explored_nodes: attempt.explored_nodes,
+        propagated_values: attempt.propagated_values,
       }
     }
   }

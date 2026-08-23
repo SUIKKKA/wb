@@ -59,7 +59,7 @@ pub fn validate_problem(problem : ScheduleProblem) -> Array[Diagnostic] {
       )
     }
     for span in person.availability {
-      if not(span.is_valid()) {
+      if !span.is_valid() {
         out.push(
           diagnostic(
             InvalidTimeSpan,
@@ -83,7 +83,7 @@ pub fn validate_problem(problem : ScheduleProblem) -> Array[Diagnostic] {
   }
   for i = 0; i < problem.shifts.length(); i = i + 1 {
     let shift = problem.shifts[i]
-    if not(shift.time.is_valid()) {
+    if !shift.time.is_valid() {
       out.push(
         diagnostic(InvalidTimeSpan, "shift span is invalid", shift_id=shift.id),
       )
@@ -199,7 +199,7 @@ pub fn can_assign(
       ),
     )
   }
-  if not(is_available(person, shift)) {
+  if !is_available(person, shift) {
     return Some(
       diagnostic(
         OutsideAvailability,
@@ -210,7 +210,7 @@ pub fn can_assign(
       ),
     )
   }
-  if not(meets_requirements(person, shift)) {
+  if !meets_requirements(person, shift) {
     return Some(
       diagnostic(
         SkillMismatch,
@@ -326,7 +326,7 @@ pub fn validate_assignments(
             found = true
           }
         }
-        if not(found) {
+        if !found {
           out.push(
             diagnostic(
               UncoveredSlot,

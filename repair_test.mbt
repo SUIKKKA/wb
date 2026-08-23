@@ -22,7 +22,7 @@ test "repair removes unavailable person and preserves unaffected assignment" {
     preserve_unaffected: true,
   }
   let result = repair(problem, request)
-  inspect(result.status, content="Solved")
+  assert_eq(result.status, Solved)
   inspect(result.assignments[0].person_id, content="bob")
 }
 

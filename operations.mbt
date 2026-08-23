@@ -11,7 +11,7 @@ pub(all) struct ShiftOperation {
   coverage_percent : Int
   risk_score : Int
   risk_level : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// A transition between two adjacent duties performed by one person.
@@ -22,7 +22,7 @@ pub(all) struct Handover {
   gap_minutes : Int
   same_group : Bool
   risk_score : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Day-level summary for dashboards and post-run review.
@@ -36,7 +36,7 @@ pub(all) struct DayOperation {
   scheduled_minutes : Int
   average_load : Int
   risk_score : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// A concrete operational action generated from schedule evidence.
@@ -45,7 +45,7 @@ pub(all) struct OperationalAction {
   category : String
   subject : String
   message : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Full operational view; it remains useful even for a partial roster.
@@ -55,7 +55,7 @@ pub(all) struct OperationalReview {
   handovers : Array[Handover]
   actions : Array[OperationalAction]
   total_risk : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 /// Count assignments attached to one shift.

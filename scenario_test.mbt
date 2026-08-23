@@ -12,7 +12,7 @@ test "all bundled scenarios validate" {
 test "store scenario solves completely" {
   let problem = store_scenario()
   let result = solve(problem)
-  inspect(result.status, content="Solved")
+  assert_eq(result.status, Solved)
   inspect(count_uncovered(problem, result.assignments), content="0")
 }
 
@@ -20,7 +20,7 @@ test "store scenario solves completely" {
 test "laboratory scenario solves skill constraints" {
   let problem = laboratory_scenario()
   let result = solve(problem)
-  inspect(result.status, content="Solved")
+  assert_eq(result.status, Solved)
   inspect(
     count_policy_errors(run_all_policies(problem, result.assignments)),
     content="0",
@@ -32,7 +32,7 @@ test "volunteer scenario is deterministic" {
   let problem = volunteer_scenario()
   let first = solve(problem)
   let second = solve(problem)
-  inspect(first.assignments, content=second.assignments.to_string())
+  assert_eq(first.assignments, second.assignments)
 }
 
 ///|

@@ -2,14 +2,14 @@
 pub(all) struct SlotKey {
   shift_id : ShiftId
   slot : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct CandidateDomain {
   key : SlotKey
   people : Array[PersonId]
   rejected : Array[Diagnostic]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn build_domain(
@@ -43,7 +43,7 @@ pub fn build_domains(
           occupied = true
         }
       }
-      if not(occupied) {
+      if !occupied {
         domains.push(build_domain(problem, assignments, shift, slot))
       }
     }

@@ -11,7 +11,7 @@ pub(all) enum RecordKind {
   CommentRecord
   BlankRecord
   UnknownRecord
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ParseIssue {
@@ -19,13 +19,13 @@ pub(all) struct ParseIssue {
   column : Int
   message : String
   source : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ParsedRoster {
   problem : ScheduleProblem
   issues : Array[ParseIssue]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn trim_ascii(text : String) -> String {

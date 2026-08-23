@@ -4,7 +4,7 @@ pub(all) struct CandidateExplanation {
   eligible : Bool
   incremental_cost : Int
   reasons : Array[String]
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct SlotExplanation {
@@ -14,7 +14,7 @@ pub(all) struct SlotExplanation {
   eligible_count : Int
   rejected_count : Int
   forced : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 fn diagnostic_reason(item : Diagnostic) -> String {

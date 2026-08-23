@@ -60,12 +60,12 @@ test "skill mismatch explains rejection" {
   let shift = test_shift("lab", 800, 900, "chemist")
   let domain = build_domain(problem, [], shift, 0)
   inspect(domain.people.length(), content="0")
-  inspect(domain.rejected[0].code, content="SkillMismatch")
+  assert_eq(domain.rejected[0].code, SkillMismatch)
 }
 
 ///|
 test "independent validator reports uncovered slot" {
   let errors = validate_assignments(test_problem(), [])
   inspect(errors.length(), content="1")
-  inspect(errors[0].code, content="UncoveredSlot")
+  assert_eq(errors[0].code, UncoveredSlot)
 }

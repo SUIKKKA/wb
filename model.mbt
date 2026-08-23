@@ -8,25 +8,25 @@ pub type ShiftId = String
 pub(all) struct TimeSpan {
   start : Int
   end : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct SkillRequirement {
   skill : String
   minimum_level : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct Skill {
   name : String
   level : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ShiftPreference {
   shift_id : ShiftId
   weight : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct Person {
@@ -38,7 +38,7 @@ pub(all) struct Person {
   target_minutes : Int
   maximum_minutes : Int
   maximum_consecutive_shifts : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct Shift {
@@ -49,7 +49,7 @@ pub(all) struct Shift {
   requirements : Array[SkillRequirement]
   priority : Int
   group : String
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct Assignment {
@@ -57,7 +57,7 @@ pub(all) struct Assignment {
   slot : Int
   person_id : PersonId
   locked : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ScheduleProblem {
@@ -68,7 +68,7 @@ pub(all) struct ScheduleProblem {
   fairness_weight : Int
   preference_weight : Int
   disruption_weight : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) enum DiagnosticCode {
@@ -89,7 +89,7 @@ pub(all) enum DiagnosticCode {
   EmptyCandidateDomain
   SearchBudgetExceeded
   InvalidConfiguration
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct Diagnostic {
@@ -99,7 +99,7 @@ pub(all) struct Diagnostic {
   shift_id : ShiftId?
   slot : Int?
   severity : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) enum SolveStatus {
@@ -107,7 +107,7 @@ pub(all) enum SolveStatus {
   Partial
   Infeasible
   BudgetExceeded
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ScheduleMetrics {
@@ -118,7 +118,7 @@ pub(all) struct ScheduleMetrics {
   disruption_count : Int
   total_minutes : Int
   objective : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct ScheduleResult {
@@ -128,7 +128,7 @@ pub(all) struct ScheduleResult {
   metrics : ScheduleMetrics
   explored_nodes : Int
   propagated_values : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct SearchOptions {
@@ -136,7 +136,7 @@ pub(all) struct SearchOptions {
   maximum_solutions : Int
   stop_at_first_feasible : Bool
   keep_explanations : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn SearchOptions::default() -> SearchOptions {

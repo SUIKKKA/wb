@@ -85,7 +85,7 @@ pub fn render_csv(problem : ScheduleProblem, result : ScheduleResult) -> String 
 
 ///|
 pub fn render_json(
-  problem : ScheduleProblem,
+  _problem : ScheduleProblem,
   result : ScheduleResult,
 ) -> String {
   let mut text = "{\"status\":\"\{status_text(result.status)}\",\"objective\":\{result.metrics.objective},\"assignments\":["

@@ -3,7 +3,7 @@ pub(all) enum FindingLevel {
   Info
   Warning
   Error
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub(all) struct PolicyFinding {
@@ -14,7 +14,7 @@ pub(all) struct PolicyFinding {
   shift_id : ShiftId?
   measured : Int
   expected : Int
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 fn finding(

@@ -4,7 +4,7 @@ pub(all) struct RepairRequest {
   removed_shifts : Array[ShiftId]
   unlocked_shifts : Array[ShiftId]
   preserve_unaffected : Bool
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///|
 pub fn RepairRequest::empty() -> RepairRequest {
